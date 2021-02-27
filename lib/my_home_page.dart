@@ -9,15 +9,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> _todoItems = [
-    "数学の課題",
-    "TwitterのBotの実装",
-    "A p e x L e g e n d s",
+  List<Todo> _todoItems = [
+    Todo("数学の課題",Icons.description),
+    Todo("TwitterのBotの実装",Icons.description),
+    Todo("A p e x L e g e n d s",Icons.description),
   ];
 
-  void _addTodo(String title) {
+  void _addTodo(Todo todo) {
     setState(() {
-      _todoItems.add(title);
+      _todoItems.add(todo);
+    });
+  }
+
+  void _deleteTodo(int index) {
+    setState(() {
+      _todoItems.removeAt(index);
     });
   }
 
@@ -36,10 +42,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 border: Border.all(width: 1.0, color: Colors.purpleAccent),
               ),
               child: ListTile(
-                title: Text(_todoItems[index]),
+                leading: Icon(
+                  _todoItems[index].icon,
+                  size: 35.0,
+                ),
+                title: Text(_todoItems[index].title),
                 trailing: IconButton(
                   icon: Icon(Icons.more_vert),
-                  onPressed: () {},
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Text(_todoItems[index].title),
+                      actions: [
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Colors.purpleAccent,
+                          onPressed: () {
+                            _deleteTodo(index);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -50,11 +75,18 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async {
           final String title = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => CreatePage()));
-          _addTodo(title);
+          if (title != null && title != "") _addTodo(Todo(title,Icons.add));
         },
         tooltip: 'Add ToDo',
         child: Icon(Icons.add),
       ),
     );
   }
+}
+
+class Todo {
+  String title;
+  IconData icon;
+
+  Todo(this.title, this.icon);
 }
