@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'creat_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -30,13 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: _todoItems.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
-              child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 1.0, color: Colors.purpleAccent),
-            ),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 1.0, color: Colors.purpleAccent),
+              ),
               child: ListTile(
                 title: Text(_todoItems[index]),
-                trailing:IconButton(
+                trailing: IconButton(
                   icon: Icon(Icons.more_vert),
                   onPressed: () {},
                 ),
@@ -46,7 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addTodo("追加したToDo"),
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CreatePage())),
         tooltip: 'Add ToDo',
         child: Icon(Icons.add),
       ),
