@@ -9,11 +9,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Todo> _todoItems = [
-    Todo("数学の課題", Icons.description),
-    Todo("TwitterのBotの実装", Icons.description),
-    Todo("A p e x L e g e n d s", Icons.description),
-  ];
+  List<Todo> _todoItems = [];
 
   void _addTodo(Todo todo) {
     setState(() {
