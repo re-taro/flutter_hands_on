@@ -10,9 +10,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Todo> _todoItems = [
-    Todo("数学の課題",Icons.description),
-    Todo("TwitterのBotの実装",Icons.description),
-    Todo("A p e x L e g e n d s",Icons.description),
+    Todo("数学の課題", Icons.description),
+    Todo("TwitterのBotの実装", Icons.description),
+    Todo("A p e x L e g e n d s", Icons.description),
   ];
 
   void _addTodo(Todo todo) {
@@ -73,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final String title = await Navigator.of(context)
+          final Todo todo = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => CreatePage()));
-          if (title != null && title != "") _addTodo(Todo(title,Icons.add));
+          if (todo != null) _addTodo(todo);
         },
         tooltip: 'Add ToDo',
         child: Icon(Icons.add),
